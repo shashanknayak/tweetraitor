@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+<% if current_user %>
+	<%= image_tag(@user.profile_image_url).html_safe %>  
+	&nbsp;&nbsp;&nbsp;	
+	<p id="imp">Welcome, <%= @user.name %></p>
+	<br /><br />
+	<a href="/play?type=football" class="super green button">
+	<span>Football - ElClassico</span>
+	</a>
+	
+	<a href="/play?type=cricket" class="super green button">
+	<span>Cricket - IndvsAus</span>
+	</a>
+<% elsif guest_user%>	
+	<%	
+    id = session[:guest_id]
+    @guest = Guest.find(id)
+	%>
+	<p id="imp">Welcome, <%= @guest.name.capitalize %>	
+	<br /><br />
+	<a href="/gplay?type=football" class="super green button">
+	<span>Football - ElClassico</span>
+	</a>
+	
+	<a href="/gplay?type=cricket" class="super green button">
+	<span>Cricket - IndvsAus</span>
+	</a>
+<% end %>
+
+
+<% if guest_user || current_user %>	
+	<br /><br />
+	<h3 class="">Feedback</h3>
+	<p>This is of prime importance to us and one of the reasons of the pilot. Please give us your valued feedback.</p>		
+	<h3>Team</h3>
+	<p>Rohit Jain | Neeraj Gupta | Shashank Nayak</p>
+	<p>IIIT | NSIT</p>
+<% end %>

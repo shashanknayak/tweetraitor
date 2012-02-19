@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="author" content="Shashank Nayak">
+	  <meta name="author" content="Rohit Jain">
+	  <meta name="author" content="Neeraj Gupta">
+		<title>Classify!!</title>
+		<%= stylesheet_link_tag    "application" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag "sky" %>		
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
+  	<%= javascript_include_tag "demo.js" %>
+	</head>
+	<body>
+		<div id="cover">
+		</div>
+		<div class="container">
+			<header>
+				<% if current_user || guest_user %> 
+					<a href="/feedback" class="super magenta button"> <span>Feedback</span> </a>
+					<a id="dstart" class="super green button"><span>Demo</span></a>
+					<a class="super green button" id="dend"><span>Stop</span></a>
+				<% end %>
+				<nav class="round">
+					<ul>
+						<% if guest_user %>
+						<li>
+							<a href="/" class="super green button"> <span>Home</span> </a>
+						</li>
+						<li>
+							<a href="/guest_signout" class="super green button"> <span>Logout</span> </a>
+						</li>
+						<% elsif current_user %>
+						<li>
+							<a href="/" class="super green button"> <span>Home</span> </a>
+						</li>
+						<li>
+							<a href="/signout" class="super green button"> <span>Logout</span> </a>
+						</li>
+						<% else %>
+						<li>
+							<a href="/auth/twitter" class="super green button"> <span>Sign in with Twitter</span> </a>
+						</li>
+						<li>
+							<a href="/guest" class="super green button"> <span>Guest</span> </a>
+						</li>
+						<% end %>
+					</ul>
+				</nav>
+			</header>
+			<section class="round">
+				<div style="text-align: center">
+					<p style="font-size: 20px; font-weight: bolder"><span>Type to Shoot</span></p>
+				</div>
+				<% if current_user || guest_user %>
+				<div id="demo">
+					<div  id="dtweet">
+						<img src="../../assets/demo/tweet.png" />				
+					</div>					
+					<div id="game_img" >				
+						<img src="../../assets/demo/view.png" />	
+					</div>
+					<p id="read"></p>
+					<div id="life">	
+						<img src="../../assets/demo/life.png" />
+					</div>
+					
+					<div id="spam">
+						<img src="../../assets/demo/spam.png" />
+					</div>
+					<div id="notspam">
+						<img src="../../assets/demo/notspam.png" />
+					</div>
+					<div id="type" ></div>
+					<a id="dstart_on" class="super green button">
+						<span>Again</span>
+					</a>
+					<a class="green super button" id = "show_game">
+						<span>Got it</span>
+					</a>
+					<% if guest_user %>
+					<a href="/gplay?type=cricket" class="green super button" id = "cric">
+						<span>Cricket</span>
+					</a>
+					<a href="/gplay?type=football" class="green super button" id = "fball">
+						<span>Football</span>
+					</a>
+					<% else %>
+					<a href="/play?type=cricket" class="green super button" id = "cric">
+						<span>Cricket</span>
+					</a>
+					<a href="/play?type=football" class="green super button" id = "fball">
+						<span>Football</span>
+					</a>
+					<% end %>
+				</div>
+				<% end %>
+				
+				<%= yield %>
+				
+				<% if !current_user && !guest_user %> 
+				<br />
+				<h3 class="">Feedback</h3>
+				<p>
+					This is of prime importance to us and one of the reasons of the pilot. Please give us your valued feedback.
+				</p>
+				<h3>Team</h3>
+				<p>
+					Rohit Jain | Neeraj Gupta | Shashank Nayak
+				</p>
+				<p>
+					IIIT | NSIT
+				</p>
+				<% end %>
+			</section>
+		</div>
+	</body>
+</html>
